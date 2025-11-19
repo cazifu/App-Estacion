@@ -7,20 +7,35 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f7fa; min-height: 100vh; }
-        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 2rem; text-align: center; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; }
+        .header { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); color: white; padding: 2rem; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.2); }
+        .header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
         .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
-        .card { background: white; border-radius: 15px; padding: 2rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); margin-bottom: 1rem; }
+        .card { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-radius: 20px; padding: 2rem; box-shadow: 0 8px 32px rgba(0,0,0,0.1); margin-bottom: 1rem; border: 1px solid rgba(255,255,255,0.2); }
         .loading { text-align: center; padding: 3rem; font-size: 1.2rem; color: #666; }
-        .estacion-info h2 { color: #333; margin-bottom: 1rem; font-size: 2rem; }
-        .estacion-info p { color: #666; font-size: 1.1rem; margin-bottom: 0.5rem; }
-        .btn-back { background: #6c757d; color: white; padding: 0.8rem 1.5rem; border: none; border-radius: 25px; text-decoration: none; display: inline-block; margin-top: 1rem; }
-        .btn-back:hover { background: #5a6268; }
-        .charts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin-top: 2rem; }
-        .chart-container { background: white; border-radius: 15px; padding: 1.5rem; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .chart-title { font-size: 1.2rem; font-weight: bold; color: #333; margin-bottom: 1rem; text-align: center; }
-        .chart-canvas { width: 100%; height: 250px; }
-        .update-time { text-align: center; color: #666; font-size: 0.9rem; margin-top: 1rem; }
+        .estacion-info h2 { color: #333; margin-bottom: 1rem; font-size: 2.2rem; font-weight: 600; }
+        .estacion-info p { color: #555; font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .btn-back { background: linear-gradient(45deg, #667eea, #764ba2); color: white; padding: 0.8rem 2rem; border: none; border-radius: 30px; text-decoration: none; display: inline-block; margin-top: 1rem; font-weight: 500; transition: all 0.3s; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3); }
+        .btn-back:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4); }
+        .charts-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2rem; }
+        .chart-container { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-radius: 20px; padding: 1.5rem; box-shadow: 0 8px 32px rgba(0,0,0,0.1); border: 1px solid rgba(255,255,255,0.2); transition: all 0.3s; }
+        .chart-container:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0,0,0,0.15); }
+        .chart-title { font-size: 1.1rem; font-weight: 600; color: #333; margin-bottom: 1rem; text-align: center; display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
+        .chart-canvas { position: relative; height: 200px !important; width: 100% !important; max-height: 200px; }
+        .chart-container:last-child { grid-column: 1 / -1; max-width: 450px; margin: 0 auto; }
+        @media (max-width: 768px) {
+            .charts-grid { grid-template-columns: 1fr; gap: 1rem; }
+            .chart-container:last-child { grid-column: 1; }
+            .header h1 { font-size: 2rem; }
+        }
+        .update-time { text-align: center; color: rgba(255,255,255,0.8); font-size: 0.9rem; margin-top: 1rem; background: rgba(255,255,255,0.1); padding: 0.5rem 1rem; border-radius: 20px; backdrop-filter: blur(10px); }
+        .status-indicator { display: inline-block; width: 8px; height: 8px; background: #4ecdc4; border-radius: 50%; margin-right: 0.5rem; animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
     </style>
 </head>
 <body>
@@ -41,23 +56,33 @@
         <div class="charts-grid" id="chartsGrid" style="display: none;">
             <div class="chart-container">
                 <div class="chart-title">🌡️ Temperatura</div>
-                <canvas id="tempChart" class="chart-canvas"></canvas>
+                <div style="height: 200px; position: relative;">
+                    <canvas id="tempChart" width="400" height="200"></canvas>
+                </div>
             </div>
             <div class="chart-container">
                 <div class="chart-title">💧 Humedad</div>
-                <canvas id="humChart" class="chart-canvas"></canvas>
+                <div style="height: 200px; position: relative;">
+                    <canvas id="humChart" width="400" height="200"></canvas>
+                </div>
             </div>
             <div class="chart-container">
                 <div class="chart-title">💨 Viento</div>
-                <canvas id="windChart" class="chart-canvas"></canvas>
+                <div style="height: 200px; position: relative;">
+                    <canvas id="windChart" width="400" height="200"></canvas>
+                </div>
             </div>
             <div class="chart-container">
                 <div class="chart-title">🌪️ Presión Atmosférica</div>
-                <canvas id="pressChart" class="chart-canvas"></canvas>
+                <div style="height: 200px; position: relative;">
+                    <canvas id="pressChart" width="400" height="200"></canvas>
+                </div>
             </div>
             <div class="chart-container">
                 <div class="chart-title">🔥 Riesgo de Incendio</div>
-                <canvas id="fireChart" class="chart-canvas"></canvas>
+                <div style="height: 200px; position: relative;">
+                    <canvas id="fireChart" width="400" height="200"></canvas>
+                </div>
             </div>
         </div>
         
@@ -87,13 +112,13 @@
                     }]
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
+                    responsive: false,
+                    plugins: { legend: { display: false } },
                     scales: {
                         y: {
                             beginAtZero: false,
-                            min: estacion.temperatura - 5,
-                            max: estacion.temperatura + 5
+                            min: estacion.temperatura - 3,
+                            max: estacion.temperatura + 3
                         }
                     }
                 }
@@ -110,8 +135,13 @@
                     }]
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false
+                    responsive: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { boxWidth: 12, font: { size: 10 } }
+                        }
+                    }
                 }
             });
             
@@ -127,13 +157,10 @@
                     }]
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
+                    responsive: false,
+                    plugins: { legend: { display: false } },
                     scales: {
-                        y: {
-                            beginAtZero: true,
-                            max: 30
-                        }
+                        y: { beginAtZero: true, max: 30 }
                     }
                 }
             });
@@ -152,13 +179,13 @@
                     }]
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
+                    responsive: false,
+                    plugins: { legend: { display: false } },
                     scales: {
                         y: {
                             beginAtZero: false,
-                            min: estacion.presion - 5,
-                            max: estacion.presion + 5
+                            min: estacion.presion - 3,
+                            max: estacion.presion + 3
                         }
                     }
                 }
@@ -176,8 +203,13 @@
                     }]
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false
+                    responsive: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { boxWidth: 12, font: { size: 10 } }
+                        }
+                    }
                 }
             });
         }
@@ -206,7 +238,7 @@
             charts.press.update();
             
             // Actualizar tiempo
-            document.getElementById('updateTime').textContent = `Última actualización: ${new Date().toLocaleTimeString()}`;
+            document.getElementById('updateTime').innerHTML = `<span class="status-indicator"></span>Última actualización: ${new Date().toLocaleTimeString()}`;
         }
         
         async function cargarDetalle() {
@@ -232,7 +264,7 @@
                     document.getElementById('updateTime').style.display = 'block';
                     
                     createCharts(estacion);
-                    document.getElementById('updateTime').textContent = `Última actualización: ${new Date().toLocaleTimeString()}`;
+                    document.getElementById('updateTime').innerHTML = `<span class="status-indicator"></span>Última actualización: ${new Date().toLocaleTimeString()}`;
                     
                     // Actualizar cada minuto
                     setInterval(() => {
