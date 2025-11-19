@@ -3,48 +3,88 @@
     "chipid": "123456",
     "apodo": "Estación Centro",
     "ubicacion": "Plaza Principal",
-    "visitas": 1250
+    "visitas": 1250,
+    "temperatura": 24.5,
+    "humedad": 65,
+    "viento": 12.3,
+    "presion": 1013.2,
+    "riesgo_incendio": 3
   },
   {
     "chipid": "789012",
     "apodo": "Estación Norte",
     "ubicacion": "Barrio Norte",
-    "visitas": 892
+    "visitas": 892,
+    "temperatura": 22.1,
+    "humedad": 72,
+    "viento": 8.7,
+    "presion": 1015.8,
+    "riesgo_incendio": 2
   },
   {
     "chipid": "345678",
     "apodo": "Estación Sur",
     "ubicacion": "Zona Industrial",
-    "visitas": 2034
+    "visitas": 2034,
+    "temperatura": 26.8,
+    "humedad": 58,
+    "viento": 15.2,
+    "presion": 1011.5,
+    "riesgo_incendio": 4
   },
   {
     "chipid": "456789",
     "apodo": "Estación Este",
     "ubicacion": "Parque Municipal",
-    "visitas": 567
+    "visitas": 567,
+    "temperatura": 23.7,
+    "humedad": 68,
+    "viento": 10.1,
+    "presion": 1014.3,
+    "riesgo_incendio": 2
   },
   {
     "chipid": "567890",
     "apodo": "Estación Oeste",
     "ubicacion": "Centro Comercial",
-    "visitas": 1789
+    "visitas": 1789,
+    "temperatura": 25.2,
+    "humedad": 61,
+    "viento": 13.8,
+    "presion": 1012.7,
+    "riesgo_incendio": 3
   },
   {
     "chipid": "678901",
     "apodo": "Estación Aeropuerto",
     "ubicacion": "Terminal Aérea",
-    "visitas": 3421
+    "visitas": 3421,
+    "temperatura": 21.9,
+    "humedad": 75,
+    "viento": 18.5,
+    "presion": 1016.1,
+    "riesgo_incendio": 1
   },
   {
     "chipid": "789123",
     "apodo": "Estación Universidad",
     "ubicacion": "Campus Universitario",
-    "visitas": 987
+    "visitas": 987,
+    "temperatura": 24.1,
+    "humedad": 63,
+    "viento": 11.4,
+    "presion": 1013.9,
+    "riesgo_incendio": 3
   },
   {
     "chipid": "890234",
     "apodo": "Estación Puerto",
     "ubicacion": "Zona Portuaria",
-    "visitas": 654
+    "visitas": 654,
+    "temperatura": 27.3,
+    "humedad": 55,
+    "viento": 16.7,
+    "presion": 1010.8,
+    "riesgo_incendio": 4
   }
 ]
