@@ -40,7 +40,10 @@
     <script>
         async function cargarEstaciones() {
             try {
-                const response = await fetch('<?= API_URL ?>');
+                const apiUrl = window.location.href.includes('?') 
+                    ? window.location.href.split('?')[0] + 'api.php'
+                    : window.location.href + 'api.php';
+                const response = await fetch(apiUrl);
                 const estaciones = await response.json();
                 
                 const grid = document.getElementById('estacionesGrid');
@@ -67,7 +70,7 @@
         }
         
         function verDetalle(chipid) {
-            window.location.href = `detalle/${chipid}`;
+            window.location.href = `?r=detalle/${chipid}`;
         }
         
         cargarEstaciones();

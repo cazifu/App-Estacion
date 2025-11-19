@@ -1,0 +1,50 @@
+[
+  {
+    "chipid": "123456",
+    "apodo": "Estación Centro",
+    "ubicacion": "Plaza Principal",
+    "visitas": 1250
+  },
+  {
+    "chipid": "789012",
+    "apodo": "Estación Norte",
+    "ubicacion": "Barrio Norte",
+    "visitas": 892
+  },
+  {
+    "chipid": "345678",
+    "apodo": "Estación Sur",
+    "ubicacion": "Zona Industrial",
+    "visitas": 2034
+  },
+  {
+    "chipid": "456789",
+    "apodo": "Estación Este",
+    "ubicacion": "Parque Municipal",
+    "visitas": 567
+  },
+  {
+    "chipid": "567890",
+    "apodo": "Estación Oeste",
+    "ubicacion": "Centro Comercial",
+    "visitas": 1789
+  },
+  {
+    "chipid": "678901",
+    "apodo": "Estación Aeropuerto",
+    "ubicacion": "Terminal Aérea",
+    "visitas": 3421
+  },
+  {
+    "chipid": "789123",
+    "apodo": "Estación Universidad",
+    "ubicacion": "Campus Universitario",
+    "visitas": 987
+  },
+  {
+    "chipid": "890234",
+    "apodo": "Estación Puerto",
+    "ubicacion": "Zona Portuaria",
+    "visitas": 654
+  }
+]

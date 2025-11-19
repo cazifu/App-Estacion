@@ -18,7 +18,7 @@
     <div class="container">
         <h1>🌤️ Estaciones Meteorológicas</h1>
         <p>Monitorea en tiempo real las condiciones climáticas de diferentes estaciones meteorológicas. Accede a datos actualizados de temperatura, humedad y más.</p>
-        <a href="panel" class="btn">Ver Estaciones</a>
+        <a href="?r=panel" class="btn">Ver Estaciones</a>
     </div>
 </body>
 </html>

@@ -28,7 +28,7 @@
             <div class="estacion-info" id="estacionInfo" style="display: none;">
                 <h2 id="apodo"></h2>
                 <p><strong>📍 Ubicación:</strong> <span id="ubicacion"></span></p>
-                <a href="panel" class="btn-back">← Volver al Panel</a>
+                <a href="?r=panel" class="btn-back">← Volver al Panel</a>
             </div>
         </div>
     </div>
@@ -38,7 +38,10 @@
             const chipid = '<?= $chipid ?>';
             
             try {
-                const response = await fetch('<?= API_URL ?>');
+                const apiUrl = window.location.href.includes('?') 
+                    ? window.location.href.split('?')[0] + 'api.php'
+                    : window.location.href + 'api.php';
+                const response = await fetch(apiUrl);
                 const estaciones = await response.json();
                 
                 const estacion = estaciones.find(e => e.chipid === chipid);
