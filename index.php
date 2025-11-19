@@ -8,14 +8,22 @@ $controller = new EstacionController($template);
 
 $uri = $_SERVER['REQUEST_URI'];
 $path = parse_url($uri, PHP_URL_PATH);
-$path = str_replace('/app-estacion/', '', $path);
+$path = trim($path, '/');
+$segments = explode('/', $path);
 
-if (empty($path) || $path === '/') {
+// Remove app-estacion from path if present
+if (!empty($segments) && $segments[0] === 'app-estacion') {
+    array_shift($segments);
+}
+
+$route = $segments[0] ?? '';
+
+if (empty($route)) {
     $controller->landing();
-} elseif ($path === 'panel') {
+} elseif ($route === 'panel') {
     $controller->panel();
-} elseif (preg_match('/^detalle\/(.+)$/', $path, $matches)) {
-    $controller->detalle($matches[1]);
+} elseif ($route === 'detalle' && isset($segments[1])) {
+    $controller->detalle($segments[1]);
 } else {
     http_response_code(404);
     echo "Página no encontrada";
