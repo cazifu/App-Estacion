@@ -15,6 +15,10 @@ class EstacionController {
     }
     
     public function detalle($chipid) {
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: ?r=login');
+            exit;
+        }
         echo $this->template->render('detalle', ['chipid' => $chipid]);
     }
 }

@@ -1,0 +1,17 @@
+CREATE TABLE EstacionUsuarios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    token VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    nombres VARCHAR(255) NOT NULL,
+    contraseña VARCHAR(255) NOT NULL,
+    activo BOOLEAN DEFAULT 0,
+    bloqueado BOOLEAN DEFAULT 0,
+    recupero BOOLEAN DEFAULT 0,
+    token_action VARCHAR(255) NULL,
+    add_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    update_date DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    delete_date DATETIME NULL,
+    active_date DATETIME NULL,
+    blocked_date DATETIME NULL,
+    recover_date DATETIME NULL
+);
